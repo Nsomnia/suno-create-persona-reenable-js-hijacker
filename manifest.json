@@ -1,0 +1,54 @@
+{
+  "manifest_version": 3,
+  "name": "Suno Persona Unlocker",
+  "version": "1.0.0",
+  "description": "Enables 'Create Persona from Audio' feature on suno.com by patching JavaScript responses",
+  "permissions": [
+    "declarativeNetRequest",
+    "activeTab",
+    "scripting"
+  ],
+  "host_permissions": [
+    "*://*.suno.com/*",
+    "*://suno.com/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["*://*.suno.com/*", "*://suno.com/*"],
+      "js": ["content.js"],
+      "run_at": "document_start",
+      "all_frames": true
+    }
+  ],
+  "declarative_net_request": {
+    "rule_resources": [
+      {
+        "id": "ruleset_1",
+        "enabled": true,
+        "path": "rules.json"
+      }
+    ]
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["injected.js"],
+      "matches": ["*://*.suno.com/*", "*://suno.com/*"]
+    }
+  ]
+}
